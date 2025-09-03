@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Ángel | Data Analyst Jr{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portafolio de Ángel, Analista de Datos Jr. Proyectos con Python, Power BI, SQL y Excel.">
+  <meta name="theme-color" content="#203a43">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Ángel | Data Analyst Jr">
+  <meta property="og:description" content="Transformando datos en decisiones inteligentes.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ url_for('static', filename='img/og-hero.jpg', _external=True) }}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Preconnect & Preload -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" as="image"
+        imagesrcset="{{ url_for('static', filename='img/datos.webp') }} type(image/webp), {{ url_for('static', filename='img/datos.jpeg') }} type(image/jpeg)"
+        href="{{ url_for('static', filename='img/datos.webp') }}">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top navbar-gradient">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">Ángel | Data Analyst Jr <span aria-hidden="true">📊</span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link {% if request.path=='/' %}active{% endif %}" href="{{ url_for('index') }}">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link {% if '/about' in request.path %}active{% endif %}" href="{{ url_for('about') }}">Sobre mí</a></li>
+          <li class="nav-item"><a class="nav-link {% if '/projects' in request.path %}active{% endif %}" href="{{ url_for('projects') }}">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link {% if '/contact' in request.path %}active{% endif %}" href="{{ url_for('contact') }}">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido -->
+  <main>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-light py-4 mt-5" style="background:#203a43">
+    <p class="mb-0">© {{  now().year if now is defined else 2025 }} Ángel | Data Analyst Jr 🚀 · Flask</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { AOS.init(); });
+  </script>
+</body>
+</html>

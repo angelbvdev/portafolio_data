@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Sobre mí · Ángel | Data Analyst Jr{% endblock %}
+{% block content %}
+
+<!-- About -->
+<section id="about" class="py-5" aria-labelledby="about-title">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      
+      <!-- Foto -->
+      <div class="col-12 col-lg-5 text-center" data-aos="fade-right">
+        <picture>
+          <source srcset="{{ url_for('static', filename='img/profile.webp') }}" type="image/webp">
+          <img
+            src="{{ url_for('static', filename='img/profile.jpg') }}"
+            alt="Foto de Ángel Burgos, Analista de Datos"
+            class="img-fluid rounded-4 shadow"
+            width="480" height="480" loading="lazy"
+            sizes="(max-width: 992px) 75vw, 480px">
+        </picture>
+      </div>
+
+      <!-- Texto -->
+      <div class="col-12 col-lg-7" data-aos="fade-left">
+        <h1 id="about-title" class="fw-bold mb-3">Sobre mí</h1>
+
+        <!-- Nota: usamos .lead (texto oscuro por defecto en fondo claro) -->
+        <p class="lead mb-3">
+          Soy <strong>Ángel Burgos</strong>, <em>Data Analyst Jr</em> apasionado por transformar datos en 
+          <em>insights</em> que generen valor. Mi enfoque está en <strong>Python, SQL, Power BI y Excel</strong>, 
+          aplicados al análisis, visualización y automatización de procesos.
+        </p>
+        <p class="text-muted">
+          Actualmente curso la <strong>Ingeniería en Sistemas Computacionales</strong> en el Instituto 
+          Tecnológico Superior de Guasave. Me motiva aplicar la analítica de datos para optimizar procesos, 
+          apoyar decisiones y seguir aprendiendo nuevas tecnologías. Todas la materias cursadas y aprobadas. Solo falta recidencia.
+        </p>
+
+        <!-- Datos destacados -->
+        <ul class="list-unstyled mt-4" data-aos="fade-up" data-aos-delay="100">
+          <li> Ubicación: Guasave, Sinaloa, México</li>
+          <li> Ingeniería en Sistemas <time datetime="2019">2019</time>–<time datetime="2025">2025</time></li>
+          <li> Experiencia con Python (Pandas, NumPy, Matplotlib), SQL, Power BI, Excel avanzado</li>
+          <li> Certificados: Python (Santander Open Academy) · Google Data Analytics (en curso)</li>
+          <li> Idiomas: Español (nativo), Inglés (B2), aprendiendo Japonés</li>
+        </ul>
+
+        <!-- Botones (contraste correcto en fondo claro) -->
+        <div class="d-flex flex-wrap gap-3 mt-4" data-aos="zoom-in" data-aos-delay="150">
+          <a href="{{ url_for('projects') }}" class="btn btn-gradient btn-lg" aria-label="Ver proyectos">
+             Ver proyectos
+          </a>
+
+          <!-- usa outline-dark para fondo claro; si tu CSS ya mejora outline-light, puedes volver a outline-light -->
+          <a href="{{ url_for('static', filename='cv/CV_AngelBurgosDA.pdf') }}" 
+             class="btn btn-outline-dark btn-lg"
+             download aria-label="Descargar CV en PDF">
+            📄 Descargar CV
+          </a>
+
+          <a href="mailto:angelbv.dev@gmail.com" class="btn btn-outline-dark btn-lg" aria-label="Enviar correo a Ángel">
+            ✉️ Contactar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

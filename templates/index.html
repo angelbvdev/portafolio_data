@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Inicio · Ángel | Data Analyst Jr{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<section class="hero-section" role="banner" aria-label="Presentación de Ángel, Analista de Datos Jr" data-aos="fade-up">
+  <div class="hero-content">
+    <h1 class="fw-bold display-4 text-shadow">
+      Hola, soy <span class="text-info">Ángel</span>
+    </h1>
+    <p class="lead text-shadow mb-4">
+      Analista de Datos Jr · Transformando datos en decisiones inteligentes
+    </p>
+
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      <a href="{{ url_for('projects') }}" class="btn btn-lg btn-gradient" aria-label="Ver mis proyectos">
+        ✨ Ver mis proyectos
+      </a>
+      <a href="{{ url_for('static', filename='cv/Angel_CV.pdf') }}" class="btn btn-outline-light btn-lg"
+         download aria-label="Descargar CV de Ángel en PDF">
+        📄 Descargar CV
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Tecnologías -->
+<section class="py-5 text-center" id="tech" data-aos="fade-up" aria-labelledby="tech-title">
+  <div class="container">
+
+    <h2 id="tech-title" class="section-title mb-4">Tecnologías que uso</h2>
+
+    {# ------ Macro para tarjeta de tecnología ------ #}
+    {% macro tech_card(name, href, icon_path, tech_key, delay) -%}
+      <div class="col" data-aos="zoom-in" data-aos-delay="{{ delay }}">
+        <a href="{{ href }}" target="_blank" rel="noopener noreferrer"
+           class="tech-card d-block text-decoration-none"
+           data-tech="{{ tech_key }}"
+           aria-label="{{ name }}" title="{{ name }}">
+          <img src="{{ url_for('static', filename=icon_path) }}"
+               alt="{{ name }} icono" class="mb-2" width="42" height="42" loading="lazy">
+          <span>{{ name }}</span>
+        </a>
+      </div>
+    {%- endmacro %}
+
+    {# ------ Lista de tecnologías (fácil de ampliar) ------ #}
+    {% set techs = [
+      ('Python','https://www.python.org/','img/icons/python.svg','python',100),
+      ('Power BI','https://powerbi.microsoft.com/','img/icons/powerbi.svg','powerbi',200),
+      ('SQL','https://en.wikipedia.org/wiki/SQL','img/icons/sql.svg','sql',300),
+      ('Excel','https://www.microsoft.com/microsoft-365/excel','img/icons/excel.svg','excel',400)
+    ] %}
+
+    <!-- Grid responsive y accesible -->
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+      {% for name, href, icon, key, d in techs %}
+        {{ tech_card(name, href, icon, key, d) }}
+      {% endfor %}
+    </div>
+
+    <noscript>
+      <p class="text-muted mt-3">* Las animaciones están deshabilitadas porque JavaScript no está activo.</p>
+    </noscript>
+  </div>
+</section>
+
+{% endblock %}

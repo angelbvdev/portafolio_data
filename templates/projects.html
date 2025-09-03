@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fw-bold text-center mb-5">Proyectos Destacados 🚀</h2>
+
+<div class="row g-4">
+  <!-- Proyecto -->
+  <div class="col-md-4" data-aos="zoom-in">
+    <div class="card shadow-lg border-0 h-100 glass-card">
+      <img src="{{ url_for('static', filename='img/powerbi_dashboard.png') }}" class="card-img-top" alt="Dashboard Power BI">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">Dashboard de Ventas</h5>
+        <p class="card-text">KPIs de ventas en Power BI con insights clave.</p>
+        <a href="https://app.powerbi.com/" target="_blank" class="btn btn-gradient">Ver Proyecto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Otro Proyecto -->
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="150">
+    <div class="card shadow-lg border-0 h-100 glass-card">
+      <img src="{{ url_for('static', filename='img/netflix_analysis.png') }}" class="card-img-top" alt="Netflix">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">Análisis Netflix</h5>
+        <p class="card-text">Exploración con Python, pandas y seaborn.</p>
+        <a href="https://github.com/angel/netflix-analysis" target="_blank" class="btn btn-gradient">Ver en GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Otro Proyecto -->
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+    <div class="card shadow-lg border-0 h-100 glass-card">
+      <img src="{{ url_for('static', filename='img/housing_prices.png') }}" class="card-img-top" alt="Casas">
+      <div class="card-body">
+        <h5 class="card-title fw-bold">Predicción de casas</h5>
+        <p class="card-text">Regresión con scikit-learn para predicciones inmobiliarias.</p>
+        <a href="https://github.com/angel/house-prices" target="_blank" class="btn btn-gradient">Ver en GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

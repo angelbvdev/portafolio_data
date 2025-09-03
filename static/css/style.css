@@ -1,0 +1,187 @@
+/* ===== Variables y reset mínimo ===== */
+:root{
+  /* Brand */
+  --brand-1:#00c6ff;
+  --brand-2:#0072ff;
+
+  /* Surfaces */
+  --bg-1:#0f2027;
+  --bg-2:#203a43;
+  --bg-3:#2c5364;
+  --surface-glass: rgba(255,255,255,.14);
+  --surface-stroke: rgba(255,255,255,.22);
+
+  /* Text */
+  --text-on-dark:#fff;
+  --text-on-light:#212529; /* default body text */
+
+  /* Elevation & motion */
+  --shadow:0 8px 25px rgba(0,0,0,.35);
+  --elev-soft:0 6px 18px rgba(0,114,255,.35);
+  --ease:.25s ease;
+
+  color-scheme: dark light;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-on-light);
+  background: #fff;
+}
+
+/* ===== Navbar ===== */
+.navbar-gradient{
+  background: linear-gradient(90deg, var(--bg-1), var(--bg-2), var(--bg-3));
+}
+.nav-link.active{ font-weight: 700; }
+
+/* Foco accesible global */
+a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visible{
+  outline: 3px solid var(--brand-1);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* ===== Hero (parallax con fallback móvil) ===== */
+.hero-section{
+  position: relative;
+  min-height: 90svh;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  overflow: clip;
+  color: var(--text-on-dark);
+  background: center / cover no-repeat;
+  background-image: image-set(
+    url("../img/datos.webp") type("image/webp"),
+    url("../img/datos.jpg")  type("image/jpeg")
+  );
+}
+
+/* Aplica parallax solo en desktop y si no se reduce movimiento */
+@media (min-width: 992px) and (prefers-reduced-motion: no-preference){
+  .hero-section{ background-attachment: fixed; will-change: transform; }
+}
+
+/* Overlay con gradiente dinámico */
+.hero-section::before{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(120% 90% at 70% 60%, rgba(0,0,0,.15), rgba(0,0,0,.65) 60%);
+  pointer-events:none;
+}
+
+/* Contenido del hero */
+.hero-content{
+  position: relative;
+  z-index: 1;
+  max-width: clamp(320px, 90vw, 900px);
+  padding: clamp(12px, 2vw, 28px);
+  text-align: center;
+}
+.text-shadow{ text-shadow: 2px 2px 8px rgba(0,0,0,.7); }
+
+/* Reducir animaciones si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation: none !important; transition: none !important; }
+}
+
+/* ===== Botones ===== */
+.btn-gradient{
+  --g1: var(--brand-1);
+  --g2: var(--brand-2);
+  background: linear-gradient(45deg, var(--g1), var(--g2));
+  color: var(--text-on-dark) !important;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-weight: 800;
+  transition: transform var(--ease), filter var(--ease), background var(--ease), box-shadow var(--ease);
+  box-shadow: var(--elev-soft);
+}
+.btn-gradient:hover{
+  transform: translateY(-2px) scale(1.03);
+  background: linear-gradient(45deg, var(--g2), var(--g1));
+  filter: brightness(1.05);
+}
+.btn-gradient:active{ transform: translateY(0) scale(.99); }
+
+/* Mejor contraste de outline-light en claro y oscuro */
+.btn-outline-light{
+  color:#fff;
+  border-color: rgba(255,255,255,.8);
+}
+.btn-outline-light:hover{
+  background: rgba(255,255,255,.1);
+  color: var(--brand-1);
+}
+@media (prefers-color-scheme: light){
+  .btn-outline-light{
+    color: var(--bg-2);
+    border-color: rgba(0,0,0,.2);
+  }
+  .btn-outline-light:hover{
+    background: rgba(0,0,0,.05);
+    color: var(--bg-1);
+  }
+}
+
+/* ===== Cards tipo glassmorphism ===== */
+.tech-card{
+  display: grid;
+  place-items: center;
+  gap: .35rem;
+  text-decoration: none;
+  user-select: none;
+
+  background-color: var(--surface-glass);
+  border: 1px solid var(--surface-stroke);
+  border-radius: 15px;
+  padding: 18px 14px;
+  color: var(--text-on-dark);
+  font-weight: 700;
+
+  transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease);
+}
+@supports (backdrop-filter: blur(12px)){
+  .tech-card{
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+.tech-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow); }
+
+/* Tamaño para iconos dentro de la card */
+.tech-card > img{
+  width: 42px; height: 42px; object-fit: contain; display: block;
+}
+
+/* Variantes por tecnología (con fallback si no hay color-mix) */
+.tech-card[data-tech="python"]{ background-color: rgba(55,118,171,.22); }
+.tech-card[data-tech="powerbi"]{ background-color: rgba(242,200,17,.22); }
+.tech-card[data-tech="sql"]{ background-color: rgba(0,97,138,.20); }
+.tech-card[data-tech="excel"]{ background-color: rgba(33,115,70,.22); }
+@supports (color: color-mix(in oklab, #000, #fff)){
+  .tech-card[data-tech="python"]{ background-color: color-mix(in oklab, var(--surface-glass), #3776ab 18%); }
+  .tech-card[data-tech="powerbi"]{ background-color: color-mix(in oklab, var(--surface-glass), #f2c811 20%); }
+  .tech-card[data-tech="sql"]{ background-color: color-mix(in oklab, var(--surface-glass), #00618a 16%); }
+  .tech-card[data-tech="excel"]{ background-color: color-mix(in oklab, var(--surface-glass), #217346 18%); }
+}
+
+/* ===== Tipografía utilidades ===== */
+.section-title{ font-weight: 800; letter-spacing: .2px; }
+
+/* ⚠️ Importante: la lead ya NO fuerza blanco */
+.lead{ font-size: 1.15rem; line-height: 1.6; }
+
+/* Lead especial para fondos oscuros (ej. hero) */
+.lead-on-dark{ color: rgba(255,255,255,.92); }
+
+/* ===== Layout ===== */
+main{ padding-top: 84px; }
+@media (max-width: 991.98px){ main{ padding-top: 72px; } }
