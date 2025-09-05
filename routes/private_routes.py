@@ -106,6 +106,6 @@ def add_project():
         db.session.commit()
 
         flash("Proyecto creado con éxito ✨", "success")
-        return redirect(url_for("public.project", project_id=new_project.id))
+        return redirect(url_for("public.projects", project_id=new_project.id))
 
     return render_template("add_project.html")
