@@ -1,4 +1,6 @@
-/* ===== Variables y reset mínimo ===== */
+/* =========================================================
+   Variables + reset
+   ======================================================= */
 :root{
   /* Brand */
   --brand-1:#00c6ff;
@@ -13,12 +15,20 @@
 
   /* Text */
   --text-on-dark:#fff;
-  --text-on-light:#212529; /* default body text */
+  --text-on-light:#212529;
 
-  /* Elevation & motion */
+  /* Elevation, motion, radii, spacing */
   --shadow:0 8px 25px rgba(0,0,0,.35);
   --elev-soft:0 6px 18px rgba(0,114,255,.35);
   --ease:.25s ease;
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --space-1:8px;
+  --space-2:12px;
+  --space-3:16px;
+  --space-4:24px;
+  --space-5:32px;
 
   color-scheme: dark light;
 }
@@ -31,22 +41,27 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-on-light);
   background: #fff;
+  margin: 0;
 }
 
-/* ===== Navbar ===== */
+/* =========================================================
+   Navbar
+   ======================================================= */
 .navbar-gradient{
   background: linear-gradient(90deg, var(--bg-1), var(--bg-2), var(--bg-3));
 }
 .nav-link.active{ font-weight: 700; }
 
-/* Foco accesible global */
-a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visible{
+/* Focus accesible global */
+a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visible, .form-control:focus-visible{
   outline: 3px solid var(--brand-1);
   outline-offset: 2px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 
-/* ===== Hero (parallax con fallback móvil) ===== */
+/* =========================================================
+   Hero
+   ======================================================= */
 .hero-section{
   position: relative;
   min-height: 90svh;
@@ -61,21 +76,15 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visi
     url("../img/datos.jpg")  type("image/jpeg")
   );
 }
-
-/* Aplica parallax solo en desktop y si no se reduce movimiento */
 @media (min-width: 992px) and (prefers-reduced-motion: no-preference){
   .hero-section{ background-attachment: fixed; will-change: transform; }
 }
-
-/* Overlay con gradiente dinámico */
 .hero-section::before{
   content:"";
   position:absolute; inset:0;
   background: radial-gradient(120% 90% at 70% 60%, rgba(0,0,0,.15), rgba(0,0,0,.65) 60%);
   pointer-events:none;
 }
-
-/* Contenido del hero */
 .hero-content{
   position: relative;
   z-index: 1;
@@ -91,7 +100,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visi
   *{ animation: none !important; transition: none !important; }
 }
 
-/* ===== Botones ===== */
+/* =========================================================
+   Botones
+   ======================================================= */
 .btn-gradient{
   --g1: var(--brand-1);
   --g2: var(--brand-2);
@@ -110,28 +121,15 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visi
   filter: brightness(1.05);
 }
 .btn-gradient:active{ transform: translateY(0) scale(.99); }
-
-/* Mejor contraste de outline-light en claro y oscuro */
-.btn-outline-light{
-  color:#fff;
-  border-color: rgba(255,255,255,.8);
-}
-.btn-outline-light:hover{
-  background: rgba(255,255,255,.1);
-  color: var(--brand-1);
-}
-@media (prefers-color-scheme: light){
-  .btn-outline-light{
-    color: var(--bg-2);
-    border-color: rgba(0,0,0,.2);
-  }
-  .btn-outline-light:hover{
-    background: rgba(0,0,0,.05);
-    color: var(--bg-1);
-  }
+.btn-gradient:disabled{
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-/* ===== Cards tipo glassmorphism ===== */
+/* =========================================================
+   Cards tipo glassmorphism
+   ======================================================= */
 .tech-card{
   display: grid;
   place-items: center;
@@ -155,13 +153,9 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visi
   }
 }
 .tech-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow); }
+.tech-card > img{ width: 42px; height: 42px; object-fit: contain; display: block; }
 
-/* Tamaño para iconos dentro de la card */
-.tech-card > img{
-  width: 42px; height: 42px; object-fit: contain; display: block;
-}
-
-/* Variantes por tecnología (con fallback si no hay color-mix) */
+/* Variantes */
 .tech-card[data-tech="python"]{ background-color: rgba(55,118,171,.22); }
 .tech-card[data-tech="powerbi"]{ background-color: rgba(242,200,17,.22); }
 .tech-card[data-tech="sql"]{ background-color: rgba(0,97,138,.20); }
@@ -173,15 +167,248 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .tech-card:focus-visi
   .tech-card[data-tech="excel"]{ background-color: color-mix(in oklab, var(--surface-glass), #217346 18%); }
 }
 
-/* ===== Tipografía utilidades ===== */
+/* =========================================================
+   Tipografía utilidades
+   ======================================================= */
 .section-title{ font-weight: 800; letter-spacing: .2px; }
-
-/* ⚠️ Importante: la lead ya NO fuerza blanco */
 .lead{ font-size: 1.15rem; line-height: 1.6; }
-
-/* Lead especial para fondos oscuros (ej. hero) */
 .lead-on-dark{ color: rgba(255,255,255,.92); }
 
-/* ===== Layout ===== */
+/* =========================================================
+   Layout
+   ======================================================= */
 main{ padding-top: 84px; }
 @media (max-width: 991.98px){ main{ padding-top: 72px; } }
+
+/* =========================================================
+   Formulario Proyecto — OSCURO FORZADO
+   ======================================================= */
+.glass-card{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--text-on-dark);
+}
+@supports (backdrop-filter: blur(12px)){
+  .glass-card{ backdrop-filter: blur(12px) saturate(140%); }
+}
+
+/* Tamaño y espaciados de la card */
+.card-narrow{ max-width: min(720px, 92vw); margin-inline: auto; }
+.card-spacious{ padding: clamp(18px, 4vw, 36px); margin-top: clamp(16px, 4vw, 48px); }
+
+/* Títulos y utilidades */
+.brand-accent{ color: var(--brand-1); }
+.text-center{ text-align: center; }
+.mb-lg{ margin-bottom: clamp(16px, 2.5vw, 32px); }
+.mt-lg{ margin-top: clamp(16px, 2.5vw, 32px); }
+.italic{ font-style: italic; }
+
+/* Labels y textos con contraste */
+.glass-card .label{ font-weight: 600; color: #f8f9fa; }
+.glass-card .help-text{ color: rgba(255,255,255,.7); }
+.glass-card .muted{ color: rgba(255,255,255,.65); }
+
+/* Form layout */
+.form-stacked{ display: grid; gap: clamp(16px, 2.5vw, 28px); }
+.form-group{ display: grid; gap: 8px; }
+
+/* Campos */
+.form-control{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,.24);
+  background: rgba(255,255,255,.08);
+  color: var(--text-on-dark);
+  box-shadow: 0 1px 0 rgba(0,0,0,.18) inset;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background var(--ease);
+}
+.form-control::placeholder{ color: rgba(255,255,255,.7); }
+.form-control:hover{ transform: translateY(-1px); }
+.form-control:focus{
+  outline: none;
+  border-color: color-mix(in oklab, var(--brand-1), #fff 10%);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-1), transparent 75%);
+}
+
+/* Textarea */
+textarea.form-control{ resize: vertical; min-height: 160px; }
+
+/* Acciones */
+.form-actions{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+.btn-lg{ padding: 14px 28px; font-size: 1rem; border-radius: 16px; }
+.btn-elev{ box-shadow: var(--elev-soft); }
+
+/* Validación */
+.form-control:user-invalid,
+.form-control.is-invalid{
+  border-color: #d14343;
+  box-shadow: 0 0 0 3px rgba(209,67,67,.2);
+}
+.form-control:user-valid,
+.form-control.is-valid{
+  border-color: #29a36a;
+  box-shadow: 0 0 0 3px rgba(41,163,106,.2);
+}
+
+/* Responsivo */
+@media (min-width: 900px){
+  .card-narrow{ max-width: 760px; }
+}
+
+/* ===== FIX SIMPLE: Texto negro en el formulario ===== */
+.glass-card{
+  background: #fff !important;          /* fondo blanco sólido */
+  border: 1px solid rgba(0,0,0,.1) !important;
+  color: #000 !important;               /* texto negro dentro */
+}
+
+/* Labels, ayudas y muted en negro o gris oscuro */
+.glass-card .label{ 
+  color: #000 !important;
+  font-weight: 700;
+}
+.glass-card .help-text,
+.glass-card .muted{
+  color: #444 !important;               /* gris oscuro legible */
+}
+
+/* Inputs y textarea también en negro sobre blanco */
+.glass-card .form-control{
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid rgba(0,0,0,.2) !important;
+}
+.glass-card .form-control::placeholder{
+  color: #666 !important;               /* gris medio */
+}
+
+/* =========================================================
+   Proyecto Detalle — mejoras visuales
+   ======================================================= */
+.project-summary, .project-summary-ai {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-summary:hover, .project-summary-ai:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+.project-entry {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.project-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Texto destacado para resumen IA */
+.project-summary-ai h2 {
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Responsivo para imágenes de proyecto */
+@media (max-width: 640px) {
+  .glass-card img {
+    max-height: 64vw;
+  }
+}
+
+/* =========================================================
+   Imágenes de proyecto — responsivo y contenido seguro
+   ======================================================= */
+.glass-card img {
+  display: block;
+  max-width: 100%;      /* nunca exceda el ancho del contenedor */
+  height: auto;         /* mantiene proporción */
+  max-height: 60vh;     /* altura máxima relativa a la pantalla */
+  object-fit: contain;  /* ajusta dentro del contenedor */
+  border-radius: 16px;  /* bordes suaves */
+  transition: transform 0.3s ease;
+}
+
+.glass-card img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================================
+   Hero del proyecto
+   ======================================================= */
+.project-page-content {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Imagen tipo miniatura */
+.project-thumb {
+  margin-bottom: 1.5rem;
+}
+.thumb-img {
+  width: auto;
+  max-width: 280px;  /* tamaño compacto */
+  max-height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.thumb-img:hover {
+  transform: scale(1.05);
+}
+
+/* Título */
+.project-title {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Resúmenes y entradas */
+.project-summary, .project-summary-ai, .project-entry {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  background: #f9f9f9;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-summary:hover, .project-summary-ai:hover, .project-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Entradas */
+.entries-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.project-entry h3 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Botón */
+.btn-gradient {
+  margin-top: 1rem;
+}
+
+/* Responsivo móvil */
+@media (max-width: 640px) {
+  .project-page-content {
+    padding: 0 0.5rem;
+  }
+  .thumb-img {
+    max-width: 100%;
+    max-height: 200px;
+  }
+}

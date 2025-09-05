@@ -1,0 +1,38 @@
+# Byte-compiled / Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+venv/
+ENV/
+env/
+*.env
+
+# Database
+*.db
+*.sqlite3
+
+# Flask / Django stuff
+instance/
+*.log
+
+# Editor / OS files
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# Node / frontend (si usas Tailwind con npm)
+node_modules/
+package-lock.json

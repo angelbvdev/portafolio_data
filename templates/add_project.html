@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Proyecto | Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="glass-card card-narrow card-spacious" aria-label="Formulario para agregar un nuevo proyecto">
+  <h1 class="section-title text-center brand-accent mb-lg">
+    ✨ Agregar Nuevo Proyecto ✨
+  </h1>
+
+  <!-- Mensajes flash -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-md" aria-live="polite">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'danger' if category == 'error' else category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form action="{{ url_for('private.add_project') }}" method="POST" class="form-stacked" enctype="multipart/form-data" novalidate>
+    {# Si usas CSRF (Flask-WTF), incluye: {{ form.csrf_token }} #}
+
+    <!-- Título -->
+    <div class="form-group">
+      <label for="title" class="label">Título del Proyecto 💡</label>
+      <input
+        id="title"
+        type="text"
+        name="title"
+        placeholder="Ej: Análisis de Ventas con Python"
+        required
+        class="form-control"
+        autocomplete="off"
+        maxlength="100"
+        aria-describedby="title-help"
+        value="{{ request.form.title or '' }}"
+      >
+      <p id="title-help" class="help-text">Elige un título claro y atractivo ✨ (máx. 100 caracteres)</p>
+    </div>
+
+    <!-- Resumen -->
+    <div class="form-group">
+      <label for="summary" class="label">Resumen / Descripción 📝</label>
+      <textarea
+        id="summary"
+        name="summary"
+        rows="6"
+        placeholder="Describe objetivo, herramientas y resultado (ej. Python + Power BI para dashboards)."
+        required
+        class="form-control"
+        aria-describedby="summary-help"
+      >{{ request.form.summary or '' }}</textarea>
+      <p id="summary-help" class="help-text">Comparte qué hace tu proyecto y por qué es especial 🌟</p>
+    </div>
+
+    <!-- Imagen -->
+    <div class="form-group">
+      <label for="image" class="label">Imagen del Proyecto 🖼️</label>
+      <input
+        id="image"
+        type="file"
+        name="image"
+        accept="image/*"
+        class="form-control"
+        aria-describedby="image-help image-filename"
+      >
+      <p id="image-help" class="help-text">Sube una imagen representativa (opcional) 💖</p>
+      <div id="image-filename" class="muted small"></div>
+      <div id="image-preview" class="mt-2" aria-live="polite"></div>
+    </div>
+
+    <!-- Reporte -->
+    <div class="form-group">
+      <label for="report_file" class="label">Reporte 📄</label>
+      <input
+        id="report_file"
+        type="file"
+        name="report_file"
+        accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        class="form-control"
+        aria-describedby="report-help report-filename"
+      >
+      <p id="report-help" class="help-text">Sube un archivo de reporte en PDF o Word (opcional)</p>
+      <div id="report-filename" class="muted small"></div>
+    </div>
+
+    <!-- Github -->
+    <div class="form-group">
+      <label for="github_url" class="label">Repositorio en Github 🐙</label>
+      <input
+        id="github_url"
+        type="url"
+        name="github_url"
+        placeholder="https://github.com/usuario/mi-proyecto"
+        class="form-control"
+        aria-describedby="github-help"
+        pattern="https?://(www\.)?github\.com/.+"
+        title="Debe ser una URL válida de GitHub (ej. https://github.com/usuario/repo)"
+        value="{{ request.form.github_url or '' }}"
+      >
+      <p id="github-help" class="help-text">Enlace a tu repositorio en Github (opcional)</p>
+    </div>
+
+    <!-- Botón -->
+    <div class="form-actions">
+      <button type="submit" class="btn-gradient btn-elev btn-lg">
+        💖 Agregar Proyecto
+      </button>
+    </div>
+  </form>
+
+  <p class="muted text-center mt-lg italic">
+    ✨ ¡Tus proyectos se verán super kawaii aquí! Mantén tu portafolio brillante 🌟
+  </p>
+</section>
+
+<!-- Pequeño JS para UX -->
+<script>
+  // Mostrar nombre de archivos seleccionados
+  const imageInput = document.getElementById('image');
+  const imageName = document.getElementById('image-filename');
+  const imagePreview = document.getElementById('image-preview');
+  const reportInput = document.getElementById('report_file');
+  const reportName = document.getElementById('report-filename');
+
+  function showFileName(input, target) {
+    if (input && target) {
+      target.textContent = input.files && input.files[0] ? 'Archivo: ' + input.files[0].name : '';
+    }
+  }
+
+  function previewImage(input, target) {
+    if (!input || !target) return;
+    target.innerHTML = '';
+    if (input.files && input.files[0] && input.files[0].type.startsWith('image/')) {
+      const img = document.createElement('img');
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      img.alt = 'Vista previa de la imagen';
+      img.src = URL.createObjectURL(input.files[0]);
+      target.appendChild(img);
+    }
+  }
+
+  imageInput?.addEventListener('change', () => {
+    showFileName(imageInput, imageName);
+    previewImage(imageInput, imagePreview);
+  });
+
+  reportInput?.addEventListener('change', () => showFileName(reportInput, reportName));
+</script>
+{% endblock %}
