@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Ángel | Data Analyst Jr{% endblock %}</title>
+  <title>{% block title %}Angel | Data Analyst Jr{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Portafolio de Ángel, Analista de Datos Jr. Proyectos con Python, Power BI, SQL y Excel.">
   <meta name="theme-color" content="#203a43">
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Ángel | Data Analyst Jr">
+  <meta property="og:title" content="Angel | Data Analyst Jr">
   <meta property="og:description" content="Transformando datos en decisiones inteligentes.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="{{ url_for('static', filename='img/og-hero.jpg', _external=True) }}">
@@ -33,7 +33,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top navbar-gradient">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="{{ url_for('public.index') }}">Ángel | Data Analyst Jr <span aria-hidden="true">📊</span></a>
+      <a class="navbar-brand fw-bold" href="{{ url_for('public.index') }}">Angel | Data Analyst Jr <span aria-hidden="true"></span></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
@@ -60,7 +60,7 @@
 
   <!-- Footer -->
   <footer class="text-center text-light py-4 mt-5" style="background:#203a43">
-    <p class="mb-0">© {{ now().year if now is defined else 2025 }} Ángel | Data Analyst Jr · Hecho con Flask</p>
+    <p class="mb-0">© {{ now().year if now is defined else 2025 }} Angel | Data Analyst Jr · Hecho con Flask</p>
   </footer>
 
   <!-- Scripts -->
