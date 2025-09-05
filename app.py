@@ -1,20 +1,20 @@
 from flask import Flask
 from config import DevConfig
+from extensions import db
 import os
-from extensions import db  # importamos la db desde extensions
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
-db.init_app(app)  # inicializamos SQLAlchemy con la app
+db.init_app(app)
 
-# Registrar rutas
 from routes import register_routes
 register_routes(app)
 
-# Crear tablas automáticamente al primer request (útil para Render gratis)
-@app.before_first_request
+# Crear tablas al iniciar el servidor
+@app.before_serving
 def create_tables():
     db.create_all()
+    print("✨ Tablas creadas kawaii~ 💖")
 
 if __name__ == "__main__":
     app.run(debug=True)
